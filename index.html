@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PRAYER_INTERFACE_v2077 // DYNAMIC_LOCATION</title>
+  <title>PRAYER_INTERFACE_v2088 // DYNAMIC_LOCATION</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
   
   <style>
-    /* Default Theme: V (Night City Yellow & Cyan) */
+    /* Default Theme: Yellow & Cyan */
     :root {
       --cp-primary: #FCEE09;
       --cp-secondary: #00F0FF;
@@ -20,91 +20,91 @@
       --cp-glow-intensity: 0 0 10px var(--cp-primary), 0 0 20px var(--cp-primary);
     }
 
-    [data-theme="v-night-city"] {
+    [data-theme="yellow-cyan"] {
       --cp-primary: #FCEE09;
       --cp-secondary: #00F0FF;
       --cp-panel: #0D0E15;
     }
-    [data-theme="samurai"] {
+    [data-theme="red-silver"] {
       --cp-primary: #FF003C;
       --cp-secondary: #E0E0E0;
       --cp-panel: #0A0A0C;
       --cp-border-style: solid;
       --cp-glow-intensity: 0 0 12px rgba(255, 0, 60, 0.6);
     }
-    [data-theme="arasaka"] {
+    [data-theme="crimson-steel"] {
       --cp-primary: #E60012;
       --cp-secondary: #8C92AC;
       --cp-panel: #030305;
       --cp-border-style: solid;
       --cp-glow-intensity: 0 0 8px rgba(230, 0, 18, 0.4);
     }
-    [data-theme="netrunner"] {
+    [data-theme="ice-blue"] {
       --cp-primary: #00F2FE;
       --cp-secondary: #4FACFE;
       --cp-panel: #050811;
       --cp-border-style: solid;
       --cp-glow-intensity: 0 0 14px rgba(0, 242, 254, 0.5);
     }
-    [data-theme="maelstrom"] {
+    [data-theme="radioactive-green"] {
       --cp-primary: #39FF14;
       --cp-secondary: #FFD700;
       --cp-panel: #121212;
       --cp-border-style: dashed;
       --cp-glow-intensity: 0 0 10px rgba(57, 255, 20, 0.6);
     }
-    [data-theme="max-tac"] {
+    [data-theme="tactical-blue"] {
       --cp-primary: #0055FF;
       --cp-secondary: #FFFFFF;
       --cp-panel: #0A0B10;
       --cp-border-style: solid;
       --cp-glow-intensity: 0 0 12px rgba(0, 85, 255, 0.6);
     }
-    [data-theme="songbird"] {
+    [data-theme="amber-slate"] {
       --cp-primary: #FF7700;
       --cp-secondary: #94A3B8;
       --cp-panel: #08090C;
       --cp-border-style: solid;
       --cp-glow-intensity: 0 0 12px rgba(255, 119, 0, 0.6);
     }
-    [data-theme="voodoo-boys"] {
+    [data-theme="subnet-violet"] {
       --cp-primary: #9333EA;
       --cp-secondary: #22C55E;
       --cp-panel: #07050C;
       --cp-border-style: solid;
       --cp-glow-intensity: 0 0 14px rgba(147, 51, 234, 0.6);
     }
-    [data-theme="militech"] {
+    [data-theme="tactical-tan"] {
       --cp-primary: #D4A359;
       --cp-secondary: #FFB000;
       --cp-panel: #0D0E15;
     }
-    [data-theme="kang-tao"] {
+    [data-theme="orange-yellow"] {
       --cp-primary: #FF5500;
       --cp-secondary: #FFCC00;
       --cp-panel: #0D0E15;
     }
-    [data-theme="trauma-team"] {
+    [data-theme="medical-cyan"] {
       --cp-primary: #00E5FF;
       --cp-secondary: #FFFFFF;
       --cp-panel: #0D0E15;
     }
-    [data-theme="moxes"] {
+    [data-theme="magenta-cyan"] {
       --cp-primary: #FF007F;
       --cp-secondary: #00F0FF;
       --cp-panel: #0D0E15;
     }
-    [data-theme="tyger-claws"] {
+    [data-theme="neon-purple"] {
       --cp-primary: #B000FF;
       --cp-secondary: #00F0FF;
       --cp-panel: #0D0E15;
     }
-    [data-theme="valentinos"] {
+    [data-theme="gold-crimson"] {
       --cp-primary: #FFD700;
       --cp-secondary: #C8102E;
       --cp-panel: #0D0E15;
     }
-    [data-theme="6th-street"] {
+    [data-theme="patriotic-blue"] {
       --cp-primary: #0066FF;
       --cp-secondary: #FF2233;
       --cp-panel: #0D0E15;
@@ -289,7 +289,7 @@
       animation: cp-flicker 8s infinite ease-in-out;
     }
 
-    /* Mobile / Stacked Layout Adjustments (Viewport Fit & Vertical Padding Buffer) */
+    /* Mobile / Stacked Layout Adjustments */
     @media screen and (max-width: 1149px) {
       body {
         overflow-y: auto !important;
@@ -331,9 +331,9 @@
     }
   </style>
 </head>
-<body class="text-white min-h-screen relative enable-scanlines enable-glitch" data-theme="v-night-city">
+<body class="text-white min-h-screen relative enable-scanlines enable-glitch" data-theme="yellow-cyan">
 
-  <!-- Top-Right Action Controls (Autohidden by default) -->
+  <!-- Top-Right Action Controls -->
   <div id="hud-controls" class="fixed top-4 right-4 z-50 flex items-center space-x-2">
     <button id="toggle-fullscreen" class="p-2.5 bg-black/80 border transition-colors cp-corner glow-secondary cp-hud-btn cursor-pointer" aria-label="Toggle Fullscreen" title="Toggle Fullscreen Mode">
       <svg id="icon-fullscreen-enter" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -473,27 +473,27 @@
 
       <details class="cp-border bg-black/40 group">
         <summary class="p-4 text-xs font-bold text-cp-secondary tracking-wider flex justify-between items-center">
-          <span>// 03. FACTION & THEME SYSTEM</span>
+          <span>// 03. THEME SYSTEM</span>
           <span class="icon-arrow text-cp-primary">▶</span>
         </summary>
         <div class="p-4 space-y-3">
-          <label for="theme-color" class="block text-[10px] text-gray-400 mb-1">// FACTION_PALETTE</label>
+          <label for="theme-color" class="block text-[10px] text-gray-400 mb-1">// COLOR_PALETTE</label>
           <select id="theme-color" class="w-full p-2 cp-select font-mono text-xs rounded-none cursor-pointer">
-            <option value="v-night-city">V (Night City Yellow / Cyan)</option>
-            <option value="samurai">SAMURAI / JOHNNY SILVERHAND (Neon Red / Silver)</option>
-            <option value="arasaka">Arasaka Corporation (Crimson / Gunmetal Steel)</option>
-            <option value="netrunner">Netrunner / Alt Cunningham (Ice-Blue Data / Void)</option>
-            <option value="maelstrom">Maelstrom (Radioactive Green / Hazard Yellow)</option>
-            <option value="max-tac">Max-Tac / NCPD (Tactical Blue / Enforcement White)</option>
-            <option value="songbird">Songbird / NUSA (Federal Intelligence Amber / Slate)</option>
-            <option value="voodoo-boys">Voodoo Boys (Sub-net Violet / Terminal Green)</option>
-            <option value="militech">Militech (Tactical Tan / Amber)</option>
-            <option value="kang-tao">Kang-Tao (High-Vis Orange / Yellow)</option>
-            <option value="trauma-team">Trauma Team (Medical Cyan / White)</option>
-            <option value="moxes">The Moxes (Neon Magenta / Cyan)</option>
-            <option value="tyger-claws">Tyger Claws (Neon Purple / Cyan)</option>
-            <option value="valentinos">Valentinos (Ornate Gold / Crimson)</option>
-            <option value="6th-street">6th Street (Patriotic Blue / Red)</option>
+            <option value="yellow-cyan">Yellow / Cyan</option>
+            <option value="red-silver">Neon Red / Silver</option>
+            <option value="crimson-steel">Crimson / Gunmetal Steel</option>
+            <option value="ice-blue">Ice-Blue / Void</option>
+            <option value="radioactive-green">Radioactive Green / Hazard Yellow</option>
+            <option value="tactical-blue">Tactical Blue / Enforcement White</option>
+            <option value="amber-slate">Amber / Slate</option>
+            <option value="subnet-violet">Violet / Terminal Green</option>
+            <option value="tactical-tan">Tactical Tan / Amber</option>
+            <option value="orange-yellow">High-Vis Orange / Yellow</option>
+            <option value="medical-cyan">Medical Cyan / White</option>
+            <option value="magenta-cyan">Neon Magenta / Cyan</option>
+            <option value="neon-purple">Neon Purple / Cyan</option>
+            <option value="gold-crimson">Ornate Gold / Crimson</option>
+            <option value="patriotic-blue">Patriotic Blue / Red</option>
           </select>
         </div>
       </details>
@@ -615,7 +615,7 @@
 
     let timeFormat = localStorage.getItem('cp_time_format') || "12";
     let selectedMethod = localStorage.getItem('cp_calc_method') || "2";
-    let selectedTheme = localStorage.getItem('cp_theme') || "v-night-city";
+    let selectedTheme = localStorage.getItem('cp_theme') || "yellow-cyan";
     
     let countdownEnabled = localStorage.getItem('cp_show_countdown') !== 'false';
     let highlightingEnabled = localStorage.getItem('cp_show_highlighting') !== 'false';
@@ -680,14 +680,11 @@
 
     /* Screen Click Toggle for HUD Controls */
     document.addEventListener('click', (e) => {
-      // If settings panel is open and click is inside settings, don't toggle HUD visibility
       if (panel.contains(e.target) && !backdrop.classList.contains('hidden')) return;
-      
-      // Toggle visibility class on hud-controls
       hudControls.classList.toggle('visible');
     });
 
-    /* Auto-Fit & Scaling Management (Desktop Only) */
+    /* Auto-Fit & Scaling Management */
     function getAutoFitScale() {
       const baseDesignWidth = 1240;
       const screenWidth = window.innerWidth;
