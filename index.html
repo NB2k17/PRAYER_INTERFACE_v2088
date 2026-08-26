@@ -186,6 +186,17 @@
       background-color: var(--cp-panel);
     }
 
+    /* HUD Controls Visibility Transition */
+    #hud-controls {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+    #hud-controls.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
     .border-cp-primary { border-color: var(--cp-primary) !important; }
     .border-cp-secondary { border-color: var(--cp-secondary) !important; }
     .text-cp-primary { color: var(--cp-primary) !important; }
@@ -278,14 +289,16 @@
       animation: cp-flicker 8s infinite ease-in-out;
     }
 
-    /* Mobile / Stacked Layout Adjustments (Viewport Fit) */
+    /* Mobile / Stacked Layout Adjustments (Viewport Fit & Vertical Padding Buffer) */
     @media screen and (max-width: 1149px) {
       body {
-        overflow: hidden !important;
-        height: 100vh;
+        overflow-y: auto !important;
+        min-height: 100vh;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
+        padding-bottom: env(safe-area-inset-bottom, 20px);
       }
       #wallpaper-wrapper {
         position: relative !important;
@@ -293,36 +306,35 @@
         left: auto !important;
         top: auto !important;
         width: 100% !important;
-        max-width: 520px;
-        padding: 8px;
+        max-width: 480px;
+        padding: 6px 10px 24px 10px;
         box-sizing: border-box;
       }
       #main-grid {
         flex-direction: column !important;
         align-items: center !important;
-        gap: 8px !important;
+        gap: 6px !important;
       }
       #left-column, .w-\[680px\] {
         width: 100% !important;
       }
-      /* Compact mobile padding/fonts to prevent overflow */
       .mobile-compact-box {
-        padding: 8px 12px !important;
+        padding: 6px 10px !important;
       }
       .mobile-table-cell {
-        padding: 6px 8px !important;
-        font-size: 1.1rem !important;
+        padding: 4px 6px !important;
+        font-size: 0.95rem !important;
       }
       .mobile-header-text {
-        font-size: 1.25rem !important;
+        font-size: 1.05rem !important;
       }
     }
   </style>
 </head>
 <body class="text-white min-h-screen relative enable-scanlines enable-glitch" data-theme="v-night-city">
 
-  <!-- Top-Right Action Controls -->
-  <div class="fixed top-4 right-4 z-50 flex items-center space-x-2">
+  <!-- Top-Right Action Controls (Autohidden by default) -->
+  <div id="hud-controls" class="fixed top-4 right-4 z-50 flex items-center space-x-2">
     <button id="toggle-fullscreen" class="p-2.5 bg-black/80 border transition-colors cp-corner glow-secondary cp-hud-btn cursor-pointer" aria-label="Toggle Fullscreen" title="Toggle Fullscreen Mode">
       <svg id="icon-fullscreen-enter" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
@@ -526,37 +538,37 @@
     <main id="main-grid" class="flex flex-row gap-6 relative z-10 items-center justify-center">
       
       <!-- Left Column -->
-      <div id="left-column" class="w-[420px] flex flex-col justify-center space-y-3 shrink-0">
-        <div class="grid grid-cols-1 gap-3">
+      <div id="left-column" class="w-[420px] flex flex-col justify-center space-y-2.5 shrink-0">
+        <div class="grid grid-cols-1 gap-2.5">
           
-          <div class="cp-border cp-corner glitch-border p-3.5 mobile-compact-box text-left bg-black/60 border-l-4 border-l-cp-primary">
+          <div class="cp-border cp-corner glitch-border p-2.5 mobile-compact-box text-left bg-black/60 border-l-4 border-l-cp-primary">
             <div class="flex justify-between items-center mb-0.5">
-              <p class="text-[10px] md:text-xs text-cp-secondary tracking-widest">// SYSTEM_TIME</p>
+              <p class="text-[9px] md:text-xs text-cp-secondary tracking-widest">// SYSTEM_TIME</p>
               <span id="display-location-name" class="text-[9px] md:text-[10px] text-gray-400 font-mono">--</span>
             </div>
-            <time id="live-clock" class="text-3xl md:text-5xl font-bold glow-primary glitch-text">--:--:-- --</time>
+            <time id="live-clock" class="text-2xl md:text-5xl font-bold glow-primary glitch-text">--:--:-- --</time>
           </div>
 
-          <div id="countdown-card" class="cp-border cp-corner glitch-border p-3 mobile-compact-box text-left bg-black/60 border-l-4 border-l-cp-primary">
+          <div id="countdown-card" class="cp-border cp-corner glitch-border p-2.5 mobile-compact-box text-left bg-black/60 border-l-4 border-l-cp-primary">
             <div class="flex justify-between items-center mb-0.5">
-              <p class="text-[10px] md:text-xs text-cp-secondary tracking-widest">// NEXT_EVENT</p>
-              <span id="countdown-target-name" class="text-[10px] md:text-xs font-bold text-cp-primary">--</span>
+              <p class="text-[9px] md:text-xs text-cp-secondary tracking-widest">// NEXT_EVENT</p>
+              <span id="countdown-target-name" class="text-[9px] md:text-xs font-bold text-cp-primary">--</span>
             </div>
-            <p id="countdown-timer" class="text-2xl md:text-4xl font-bold glow-primary my-0.5 font-mono glitch-text">--:--:--</p>
-            <div class="w-full bg-gray-900 h-1 mt-1.5 border border-gray-800">
+            <p id="countdown-timer" class="text-xl md:text-4xl font-bold glow-primary my-0.5 font-mono glitch-text">--:--:--</p>
+            <div class="w-full bg-gray-900 h-1 mt-1 border border-gray-800">
               <div id="countdown-progress" class="bg-cp-primary h-full transition-all duration-1000" style="width: 0%"></div>
             </div>
           </div>
 
-          <div class="cp-border cp-corner glitch-border p-3.5 mobile-compact-box text-left bg-black/60 border-l-4 border-l-cp-secondary">
-            <p class="text-[10px] md:text-xs text-cp-primary tracking-widest mb-0.5">// DATE_METRICS</p>
-            <p id="gregorian-date" class="font-bold text-sm md:text-xl text-white">--</p>
-            <p id="hijri-date" class="mt-0.5 text-xs md:text-md glow-secondary">LOADING...</p>
+          <div class="cp-border cp-corner glitch-border p-2.5 mobile-compact-box text-left bg-black/60 border-l-4 border-l-cp-secondary">
+            <p class="text-[9px] md:text-xs text-cp-primary tracking-widest mb-0.5">// DATE_METRICS</p>
+            <p id="gregorian-date" class="font-bold text-xs md:text-xl text-white">--</p>
+            <p id="hijri-date" class="mt-0.5 text-[10px] md:text-md glow-secondary">LOADING...</p>
           </div>
 
-          <div class="cp-border cp-corner glitch-border p-2.5 mobile-compact-box text-center bg-black/60 border-b-2 border-b-cp-secondary flex justify-between items-center px-4">
-            <h3 class="text-xs md:text-sm font-medium text-gray-400">// SUNRISE</h3>
-            <p id="sunrise-time" class="text-lg md:text-2xl font-bold glow-secondary">--</p>
+          <div class="cp-border cp-corner glitch-border p-2 mobile-compact-box text-center bg-black/60 border-b-2 border-b-cp-secondary flex justify-between items-center px-4">
+            <h3 class="text-[10px] md:text-sm font-medium text-gray-400">// SUNRISE</h3>
+            <p id="sunrise-time" class="text-base md:text-2xl font-bold glow-secondary">--</p>
           </div>
 
         </div>
@@ -564,28 +576,28 @@
 
       <!-- Right Column: Daily Prayer Times Table -->
       <div class="w-[680px] shrink-0">
-        <div class="cp-border cp-corner glitch-border w-full p-3 md:p-6 bg-black/60">
+        <div class="cp-border cp-corner glitch-border w-full p-2.5 md:p-6 bg-black/60">
           <table class="w-full text-center border-collapse text-xl md:text-3xl">
             <thead>
-              <tr class="border-b-2 border-cp-secondary text-cp-primary text-xl md:text-4xl">
-                <th class="p-2 md:p-3 text-left mobile-header-text">// PRAYER</th>
-                <th class="p-2 md:p-3 mobile-header-text">ADHAN</th>
-                <th class="p-2 md:p-3 mobile-header-text">IQAMAH</th>
+              <tr class="border-b-2 border-cp-secondary text-cp-primary text-lg md:text-4xl">
+                <th class="p-1.5 md:p-3 text-left mobile-header-text">// PRAYER</th>
+                <th class="p-1.5 md:p-3 mobile-header-text">ADHAN</th>
+                <th class="p-1.5 md:p-3 mobile-header-text">IQAMAH</th>
               </tr>
             </thead>
             <tbody id="prayer-table-body" class="divide-y divide-gray-800">
-              <tr id="row-fajr" class="transition-colors duration-300"><td class="p-2 md:p-4 mobile-table-cell text-left font-bold text-cp-secondary">Fajr</td><td id="fajr-adhan" class="mobile-table-cell text-gray-300">--</td><td id="fajr-iqamah" class="mobile-table-cell font-bold glow-primary">--</td></tr>
-              <tr id="row-zuhr" class="transition-colors duration-300"><td class="p-2 md:p-4 mobile-table-cell text-left font-bold text-cp-secondary">Zuhr</td><td id="zuhr-adhan" class="mobile-table-cell text-gray-300">--</td><td id="zuhr-iqamah" class="mobile-table-cell font-bold glow-primary">--</td></tr>
-              <tr id="row-asr" class="transition-colors duration-300"><td class="p-2 md:p-4 mobile-table-cell text-left font-bold text-cp-secondary">Asr</td><td id="asr-adhan" class="mobile-table-cell text-gray-300">--</td><td id="asr-iqamah" class="mobile-table-cell font-bold glow-primary">--</td></tr>
-              <tr id="row-maghrib" class="transition-colors duration-300"><td class="p-2 md:p-4 mobile-table-cell text-left font-bold text-cp-secondary">Maghrib</td><td id="maghrib-adhan" class="mobile-table-cell text-gray-300">--</td><td id="maghrib-iqamah" class="mobile-table-cell font-bold glow-primary">--</td></tr>
-              <tr id="row-isha" class="transition-colors duration-300"><td class="p-2 md:p-4 mobile-table-cell text-left font-bold text-cp-secondary">Isha</td><td id="isha-adhan" class="mobile-table-cell text-gray-300">--</td><td id="isha-iqamah" class="mobile-table-cell font-bold glow-primary">--</td></tr>
+              <tr id="row-fajr" class="transition-colors duration-300"><td class="p-1.5 md:p-4 mobile-table-cell text-left font-bold text-cp-secondary">Fajr</td><td id="fajr-adhan" class="mobile-table-cell text-gray-300">--</td><td id="fajr-iqamah" class="mobile-table-cell font-bold glow-primary">--</td></tr>
+              <tr id="row-zuhr" class="transition-colors duration-300"><td class="p-1.5 md:p-4 mobile-table-cell text-left font-bold text-cp-secondary">Zuhr</td><td id="zuhr-adhan" class="mobile-table-cell text-gray-300">--</td><td id="zuhr-iqamah" class="mobile-table-cell font-bold glow-primary">--</td></tr>
+              <tr id="row-asr" class="transition-colors duration-300"><td class="p-1.5 md:p-4 mobile-table-cell text-left font-bold text-cp-secondary">Asr</td><td id="asr-adhan" class="mobile-table-cell text-gray-300">--</td><td id="asr-iqamah" class="mobile-table-cell font-bold glow-primary">--</td></tr>
+              <tr id="row-maghrib" class="transition-colors duration-300"><td class="p-1.5 md:p-4 mobile-table-cell text-left font-bold text-cp-secondary">Maghrib</td><td id="maghrib-adhan" class="mobile-table-cell text-gray-300">--</td><td id="maghrib-iqamah" class="mobile-table-cell font-bold glow-primary">--</td></tr>
+              <tr id="row-isha" class="transition-colors duration-300"><td class="p-1.5 md:p-4 mobile-table-cell text-left font-bold text-cp-secondary">Isha</td><td id="isha-adhan" class="mobile-table-cell text-gray-300">--</td><td id="isha-iqamah" class="mobile-table-cell font-bold glow-primary">--</td></tr>
             </tbody>
           </table>
         </div>
       </div>
     </main>
 
-    <div class="w-full flex justify-center mt-3 relative z-10">
+    <div class="w-full flex justify-center mt-2.5 relative z-10">
       <a href="https://ko-fi.com/norseblade" target="_blank" rel="noopener noreferrer" class="cp-border cp-corner px-3 py-1 bg-black/70 text-[9px] md:text-xs font-mono text-gray-400 hover:text-cp-secondary transition-colors flex items-center space-x-2 tracking-widest cursor-pointer group">
         <span class="text-cp-primary group-hover:glow-primary">&hearts;</span>
         <span>SUPPORT_DEV // KO-FI</span>
@@ -620,6 +632,7 @@
     let notifyIqamahEnabled = localStorage.getItem('cp_notify_iqamah') !== 'false';
     let audioEnabled = localStorage.getItem('cp_notify_audio') !== 'false';
 
+    const hudControls = document.getElementById('hud-controls');
     const fullscreenBtn = document.getElementById('toggle-fullscreen');
     const iconFullscreenEnter = document.getElementById('icon-fullscreen-enter');
     const iconFullscreenExit = document.getElementById('icon-fullscreen-exit');
@@ -664,6 +677,15 @@
       maghrib: document.getElementById('delay-maghrib'),
       isha: document.getElementById('delay-isha')
     };
+
+    /* Screen Click Toggle for HUD Controls */
+    document.addEventListener('click', (e) => {
+      // If settings panel is open and click is inside settings, don't toggle HUD visibility
+      if (panel.contains(e.target) && !backdrop.classList.contains('hidden')) return;
+      
+      // Toggle visibility class on hud-controls
+      hudControls.classList.toggle('visible');
+    });
 
     /* Auto-Fit & Scaling Management (Desktop Only) */
     function getAutoFitScale() {
